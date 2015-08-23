@@ -31,7 +31,7 @@ import time
 ###############################################################################
 def main():
     start = time.clock()
-    total_sum = sum_sequence_values(1014)    
+    total_sum = sum_sequence_values(pow(10, 14))
     end = time.clock()
     elapsed_time = end - start
     print "The program took " + str(elapsed_time) + " seconds to execute."
@@ -45,28 +45,26 @@ def main():
 # returns:  S(n)
 ###############################################################################
 def sum_sequence_values(n):
-    base_number_seq = "123432"
+    base_number_seq = [1,2,3,4,3,2]
     total_sum = 0
     total_seq = base_number_seq
-    current_seq = ""
+    current_seq_value = 0
     current_seq_sum = 0
     position = 0
-    for num in range(1, n+1):
+    num = 1
+    while num < n + 1:
         while num != current_seq_sum:
             if position >= len(total_seq):
-                total_seq += total_seq 
-            digit = total_seq[position:position+1]
+                position = 0
+            digit = total_seq[position]
             position += 1
-            current_seq_sum += int(digit)
-            current_seq += digit
-        total_sum += int(current_seq)
-        if num == n:
-            seq_value_output = "v" + str(num) + "=" + current_seq[:10]
-            if len(current_seq) > 10:
-                seq_value_output += "..."            
-            print "S(" + str(num) + ") mod 123454321 = " + str(total_sum % 123454321)
-        current_seq = ""
+            current_seq_sum += digit
+            current_seq_value = current_seq_value * 10 + digit
+        total_sum += current_seq_value
+        current_seq_value = 0
         current_seq_sum = 0
+        num += 1
+    print "S(" + str(num) + ") mod 123454321 = " + str(total_sum % 123454321)
     return total_sum % 123454321
 
 
