@@ -1,0 +1,153 @@
+1) A sample of the output
+
+$ ./clock_sequence_506.py 
+S(100000000000000) mod 123454321 = 18934502
+The program took 0.340221 seconds to execute.
+
+
+$ ./TestClockSequence.py 
+S(11) mod 123454321 = 36120
+S(15) mod 123454321 = 260517
+S(16) mod 123454321 = 1494838
+S(17) mod 123454321 = 3838050
+S(29) mod 123454321 = 55072872
+S(30) mod 123454321 = 32875304
+S(31) mod 123454321 = 57808267
+S(32) mod 123454321 = 107138899
+S(1000) mod 123454321 = 18232686
+S(11) mod 123454321 = 36120
+S(15) mod 123454321 = 260517
+S(16) mod 123454321 = 1494838
+S(17) mod 123454321 = 3838050
+S(29) mod 123454321 = 55072872
+S(30) mod 123454321 = 32875304
+S(31) mod 123454321 = 57808267
+S(32) mod 123454321 = 107138899
+S(1000) mod 123454321 = 18232686
+S(11) mod 123454321 = 36120
+S(15) mod 123454321 = 260517
+S(16) mod 123454321 = 1494838
+S(17) mod 123454321 = 3838050
+S(29) mod 123454321 = 55072872
+S(30) mod 123454321 = 32875304
+S(31) mod 123454321 = 57808267
+S(32) mod 123454321 = 107138899
+S(1000) mod 123454321 = 18232686
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.063s
+
+OK
+
+
+
+
+
+$ ./sudoku_96.py 
+The sum of the 3-digit numbers for all grids is 24702
+The program took 4.269683 seconds to execute.
+
+
+$ ./TestSudoku.py 
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.034s
+
+OK
+
+
+
+
+$ ./even_fibonacci_2.py 
+The sum of even-valued fibonacci terms is 4613732
+The program took 7.99999999999e-06 seconds to execute.
+
+
+$ ./TestEvenFibonacci.py 
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+
+
+
+2) Why you chose the problems you did?
+
+I made my selections on Friday and pretty much stuck with the plan.  However, if I ran into time trouble I would have changed my selections.
+
+My first selection was #506 Clock Sequence.  I wanted to pick something from the back page with higher numbers.  Maybe something that wasn't frequently solved.  I was shooting for something medium-hard in difficulty that I could get done Friday evening.  After doing it, I would classify it as easy-medium.
+
+The next problem I selected was #96 Su Doku.  I picked this for pleasure -- I like games, but hadn't done a SuDoku puzzle in a number of years.  I had a feeling this would be interesting.
+
+I wanted my final selection to be easy.  I knew time would be at a premium as I already had plans for Sunday.  So I picked the #2 fibonacci sequence because it was familiar.  
+
+
+
+
+3) A description of the process you followed in solving the problem
+clock_sequence_506:
+First I took the brute force approach and just created the sequence.  Then I iterated over the sequence to produce the Vn sequence values.  Finally, I added the summation logic.  This was pretty straight forward but I left myself some TODOs as I wasn't happy with the large memory consumption.  
+I also wasn't sure you had to "run" the sequence in order to get the Vn value.  
+
+After checking the answer on the Euler site, I realized I tested S(1014) and should have run S(10**14).  So I needed to do some code tuning in order to handle such a big value.
+
+After poking around some, I noticed a comment that the sequence repeats every 15 so that helped quite a bit.
+I also noticed that folks were using the modulous value in their ongoing calculations as opposed to just using it to shape-up the total.  This felt like cheating to me, but may be the only way to get the timings down.
+I also noticed a lot of algorithms had Modular Inverse but I didn't know what it was.  
+I found this definition:
+The modular inverse of A mod C is the B value that makes A * B mod C = 1
+
+
+
+sudoku_96:
+I was tempted to just start coding some recursive logic, but decided to do some reading first.  I found a write-up from Cornell and I liked that the author was presenting a solution that could be done by hand.  Even just making a first pass at possible values for a cell would cut down the number of iterations for recursion.  I also had forgotten about the preemptive sets trick, and when I used to do these puzzles, I would limit myself to sets of 2 in size.  So this became a solution where the computer quickly became smarter than me.
+
+My initial strategy was going to be doing the markup, preemptive sets, and then recursion.  About 20 of the puzzles were solved quickly using this method.  However, some puzzles would take minutes because there was too much to do in the recursion.  So I decided to include the markup and preemptive sets in each recursion.  This made a huge difference and that is the solution that I have now.
+
+I also added a validation function to make sure the puzzle was really solved.  I didn't trust that I could verify 50 puzzles by sight.
+
+Given a little more reflection, I also could have defined the puzzle in more of an OO fashion.
+
+
+even_fibonacci_2:
+Hard-coded the first 2 values of the sequence and then just looped until the max value was reached.  Added an if statement to check for even numbers to add to the sum.
+
+
+
+4) What reference sources you used, if any
+For all programs, I used general python references from here -- https://docs.python.org/2/contents.html.
+
+clock_sequence_506.py:  
+http://eulersolutions.fr.yuku.com/topic/358/problem-506#.VdoocrcVfsY
+https://github.com/Meng-Gen/ProjectEuler/blob/master/506.py
+https://projecteuler.net/thread=506
+https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/modular-inverses
+
+
+
+sudoku_96.py:
+http://www.math.cornell.edu/~mec/Summer2009/meerkamp/Site/Introduction.html
+
+
+even_fibonacci_2.py:
+None.
+
+
+5) How much time you spent on the exercise
+clock_sequence_506.py: Initially 2 hours, but then after realizing my mistake -- about 6 hours.
+sudoku_96.py: 6 hours
+even_fibonacci_2.py: 30 minutes
+
+
+
+
+My code can be found here:
+https://github.com/pdhummel/project_euler
+
+
+
+
+
+
